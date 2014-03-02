@@ -167,6 +167,15 @@ config SND_PXA2XX_SOC_HX4700
 	  Say Y if you want to add support for SoC audio on the
 	  HP iPAQ hx4700.
 
+config SND_PXA2XX_SOC_ATHENA
+	tristate "SoC Audio support for HTC Athena"
+	depends on SND_PXA2XX_SOC && MACH_HTCATHENA && I2C
+	select SND_PXA2XX_SOC_I2S
+	select SND_SOC_AK4641
+	help
+	  Say Y if you want to add support for SoC audio on the
+	  HTC athena.
+
 config SND_PXA2XX_SOC_MAGICIAN
 	tristate "SoC Audio support for HTC Magician"
 	depends on SND_PXA2XX_SOC && MACH_MAGICIAN

@@ -73,6 +73,7 @@ obj-$(CONFIG_PATA_SIS)		+= pata_sis.o
 obj-$(CONFIG_PATA_TOSHIBA)	+= pata_piccolo.o
 obj-$(CONFIG_PATA_TRIFLEX)	+= pata_triflex.o
 obj-$(CONFIG_PATA_VIA)		+= pata_via.o
+obj-$(CONFIG_PATA_PXA_S1R72V03)	+= pata_s1r72v03.o
 obj-$(CONFIG_PATA_WINBOND)	+= pata_sl82c105.o
 
 # SFF PIO only

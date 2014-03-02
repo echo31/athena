@@ -246,6 +246,13 @@ config KEYBOARD_MATRIX
 	  To compile this driver as a module, choose M here: the
 	  module will be called matrix_keypad.
 
+
+config KEYBOARD_HTC_SPI
+	tristate "HTC SPI driven keyboard"
+	help
+	  This enables support for the keyboard attached to an spi
+	  controlling chip found on several HTC phones.
+
 config KEYBOARD_HIL_OLD
 	tristate "HP HIL keyboard support (simple driver)"
 	depends on GSC || HP300

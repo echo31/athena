@@ -706,6 +706,16 @@ config PATA_PXA
 
 	  If unsure, say N.
 
+config PATA_PXA_S1R72V03
+	tristate "PXA DMA-capable PATA S1r72v03 support for HTC Athena"
+	depends on ARCH_PXA
+	help
+	  This option enables support for harddrive attached to PXA CPU's bus.
+
+	  NOTE: DMA does not yet work.
+
+	  If unsure, say N.
+
 config PATA_WINBOND
 	tristate "Winbond SL82C105 PATA support"
 	depends on PCI

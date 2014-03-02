@@ -506,4 +506,13 @@ source "drivers/misc/ti-st/Kconfig"
 source "drivers/misc/lis3lv02d/Kconfig"
 source "drivers/misc/carma/Kconfig"
 source "drivers/misc/altera-stapl/Kconfig"
+source "drivers/misc/ch7013/Kconfig"
+
+config PHONE_ARIES_CDMA
+	bool 
+
+config SAMSUNG_MODEMCTL
+	tristate "Samsung Modem Control/IO Driver"
+	select PHONE_ARIES_CDMA
+
 endmenu

@@ -1,0 +1,11 @@
+#
+# CHRONTEL I2C under development
+#
+
+config HTC_CH7013
+	tristate "Support for CHRONTEL TV"
+	depends on GENERIC_HARDIRQS && GPIOLIB && ARM
+	select MFD_CORE
+	 ---help---
+	  This driver supports the ASIC3 multifunction chip found on many
+	  PDAs (mainly iPAQ and HTC based ones)

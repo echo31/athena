@@ -20,7 +20,7 @@
  *
  *  According to the M-Sys documentation, this device is also available in a
  *  "dual-die" configuration having a 256MB capacity, but no mechanism for
- *  detecting this variant is documented.  Currently this driver assumes 128MB
+ *  detecting this variant is documented.  Currently this driver assumes 256MB
  *  capacity.
  *
  *  Support for multiple cascaded devices ("floors").  Not sure which gadgets
@@ -164,14 +164,15 @@ struct docg4_priv {
 #define DOCG4_READ_ERROR           0x02 /* bit 1 indicates read error */
 
 /* anatomy of the device */
-#define DOCG4_CHIP_SIZE        0x8000000
+#define DOCG4_DUAL				2
+#define DOCG4_CHIP_SIZE        0x8000000  *2
 #define DOCG4_PAGE_SIZE        0x200
-#define DOCG4_PAGES_PER_BLOCK  0x200
+#define DOCG4_PAGES_PER_BLOCK  0x200 
 #define DOCG4_BLOCK_SIZE       (DOCG4_PAGES_PER_BLOCK * DOCG4_PAGE_SIZE)
 #define DOCG4_NUMBLOCKS        (DOCG4_CHIP_SIZE / DOCG4_BLOCK_SIZE)
 #define DOCG4_OOB_SIZE         0x10
-#define DOCG4_CHIP_SHIFT       27    /* log_2(DOCG4_CHIP_SIZE) */
-#define DOCG4_PAGE_SHIFT       9     /* log_2(DOCG4_PAGE_SIZE) */
+#define DOCG4_CHIP_SHIFT       27 +1    /* log_2(DOCG4_CHIP_SIZE ) */
+#define DOCG4_PAGE_SHIFT       9     /* log_2(DOCG4_PAGE_SIZE = 200) */
 #define DOCG4_ERASE_SHIFT      18    /* log_2(DOCG4_BLOCK_SIZE) */
 
 /* all but the last byte is included in ecc calculation */
@@ -1244,7 +1245,7 @@ static int __init read_id_reg(struct mtd_info *mtd)
 
 	if (id1 == DOCG4_IDREG1_VALUE && id2 == DOCG4_IDREG2_VALUE) {
 		dev_info(doc->dev,
-			 "NAND device: 128MiB Diskonchip G4 detected\n");
+			 "NAND device: 256MiB Diskonchip G4 detected\n");
 		return 0;
 	}
 
@@ -1269,12 +1270,19 @@ static int __init probe_docg4(struct platform_device *pdev)
 		return -ENODEV;
 	}
 
+	
 	virtadr = ioremap(r->start, resource_size(r));
 	if (!virtadr) {
 		dev_err(dev, "Diskonchip ioremap failed: %pR\n", r);
 		return -EIO;
 	}
 
+	virtadr = (unsigned short *)virtadr;
+	printk(KERN_DEBUG "for test  %x   \n",virtadr);
+
+	
+	
+	
 	len = sizeof(struct mtd_info) + sizeof(struct nand_chip) +
 		sizeof(struct docg4_priv);
 	mtd = kzalloc(len, GFP_KERNEL);
@@ -1307,7 +1315,7 @@ static int __init probe_docg4(struct platform_device *pdev)
 		dev_warn(dev, "No diskonchip G4 device found.\n");
 		goto fail;
 	}
-
+	 printk(KERN_DEBUG "test ok  \n");
 	retval = nand_scan_tail(mtd);
 	if (retval)
 		goto fail;

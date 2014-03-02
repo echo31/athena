@@ -69,6 +69,15 @@ config MFD_TI_SSP
 	  To compile this driver as a module, choose M here: the
 	  module will be called ti-ssp.
 
+config MFD_ATIW228x
+	tristate "Support for ATI W228x"
+	depends on GENERIC_HARDIRQS && GPIOLIB && ARM
+	select MFD_CORE
+	 ---help---
+	  This driver supports the ASIC3 multifunction chip found on many
+	  PDAs (mainly iPAQ and HTC based ones)
+ 
+
 config HTC_EGPIO
 	bool "HTC EGPIO support"
 	depends on GENERIC_HARDIRQS && GPIOLIB && ARM

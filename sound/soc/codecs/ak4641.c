@@ -613,6 +613,15 @@ static int __devinit ak4641_i2c_probe(struct i2c_client *i2c,
 		return -ENOMEM;
 
 	i2c_set_clientdata(i2c, ak4641);
+	//olivier 
+	printk(KERN_INFO"test AK4641 I2C driver \n");
+		if (i2c->adapter == NULL) return -EINVAL;
+		i2c->addr = 0x12;
+		if (i2c_smbus_xfer(i2c->adapter, i2c->addr,
+		0, 0, 0, I2C_SMBUS_QUICK, NULL) < 0)
+		printk(KERN_INFO"errur AK4641 I2C driver \n");
+	
+	
 
 	ret = snd_soc_register_codec(&i2c->dev, &soc_codec_dev_ak4641,
 				ak4641_dai, ARRAY_SIZE(ak4641_dai));
