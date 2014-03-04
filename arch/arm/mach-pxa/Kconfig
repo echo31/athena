@@ -301,6 +301,29 @@ config MACH_MAGICIAN
 	select IWMMXT
 	select HAVE_PWM
 
+config MACH_HTCATHENA
+	bool "Enable HTC Athena Support"
+	select PXA27x
+	select IWMMXT
+	select PXA_SSP
+	select HAVE_PWM
+	select BCH_CONST_PARAMS if MTD_NAND_DOCG4  
+
+if MACH_HTCATHENA && MTD_NAND_DOCG4
+config BCH_CONST_M
+  default 14
+config BCH_CONST_T
+  default 4
+endif 
+
+
+config PXA_RFKILL
+	tristate "Control the state of built-in bluetooth,gps,wlan chip on PXA"
+	select RFKILL
+	help
+	  Enable support for PXA RFKILL.
+
+
 config MACH_MIOA701
 	bool "Mitac Mio A701 Support"
 	select PXA27x
